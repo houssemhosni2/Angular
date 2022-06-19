@@ -1,6 +1,6 @@
 <div class="card text-center " style=" width: 25rem;height: 30rem;margin-top:10%;margin-left:35%;">
     <header class=" text-white p-2 mb-2 mt-5 text-center ">
-        <img src="./assets/ask1.png">
+        <img src="./assets/sksw.png">
     </header>
     <form (ngSubmit)="submit()" [formGroup]="form">
         <div class="form-group" style="width: 16rem; margin-left:70px;">
@@ -28,6 +28,6 @@
             </div>
         </div>
         <button type="submit" class="btn btn-primary btn-sm 4mt mb-2">Connexion</button>
-        <div><a href="Register" class="text-dark ml-2">N'est pas inscrit !</a></div>
+        <div><a routerLink="/register/{{roleName}}" class="btn btn-warning mr-2">N'est pas inscrit !</a></div>
     </form>
 </div>

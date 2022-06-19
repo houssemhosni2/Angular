@@ -3,7 +3,8 @@ import { FormBuilder,FormGroup, Validators } from '@angular/forms';
 import { MustMatch } from '../confirmed.validator';
 import {RegisterLoginService} from '../services/register.service';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Utils } from '../utils';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -13,7 +14,10 @@ export class RegisterComponent implements OnInit {
    form:FormGroup | any;
    submitted:false | any;
    data:any;
-constructor(private formBuilder:FormBuilder,private toastr: ToastrService,private registerService:RegisterLoginService ,private router:Router) { }
+   roleName : string | any ;
+   roleId : string | any ;
+constructor(private formBuilder:FormBuilder,private toastr: ToastrService,private registerService:RegisterLoginService ,private router:Router,    private route: ActivatedRoute,
+  ) { }
    createForm(){
       this.form=this.formBuilder.group({
       name:[null,Validators.required],
@@ -24,6 +28,8 @@ constructor(private formBuilder:FormBuilder,private toastr: ToastrService,privat
        validator: MustMatch('password','passwordr')
      }
      );
+     this.roleName = this.route.snapshot.paramMap.get("roleName");
+     this.roleId = Utils.getIdRole( this.roleName);
    }
   ngOnInit(): void {
     this.createForm();
@@ -36,7 +42,7 @@ constructor(private formBuilder:FormBuilder,private toastr: ToastrService,privat
     if(this.form.invalid){
       return;
     }
-    this.registerService.registerUser(this.form.value).subscribe(res =>{
+    this.registerService.registerUser(this.form.value,this.roleId).subscribe(res =>{
       this.data = res;
       console.log(res);
       if(this.data.status ===1){

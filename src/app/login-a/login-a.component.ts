@@ -32,7 +32,7 @@ export class LoginAComponent implements OnInit {
     if(this.form.invalid){
       return;
     }
-    this.loginService.loginUser(this.form.value).subscribe(res =>{
+    this.loginService.loginUser(this.form.value,1).subscribe(res =>{
       this.data = res;
       //console.log(res);
       if(this.data.status ===1){
